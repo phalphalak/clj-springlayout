@@ -2,13 +2,12 @@
   (:import [javax.swing Spring])
   (:refer-clojure :exclude [+ - * / max min]))
 
-(defmulti spring class)
+(defprotocol Springy
+  (spring [x]))
 
-(defmethod spring Number [n]
-  (Spring/constant n))
-
-(defmethod spring Spring [s]
-  s)
+(extend-protocol Springy
+  Number (spring [n] (Spring/constant n))
+  Spring (spring [s] s))
 
 (defn + [& args]
   (reduce (fn
