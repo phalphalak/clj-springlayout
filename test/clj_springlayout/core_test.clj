@@ -11,6 +11,12 @@
       (is (= 3 (.getMinimumValue s)))
       (is (= 3 (.getValue s)))
       (is (= 3 (.getMaximumValue s)))))
+  (testing "Sequential"
+    (let [s (spring [1 2 3])]
+      (is (instance? Spring s))
+      (is (= 1 (.getMinimumValue s)))
+      (is (= 2 (.getValue s)))
+      (is (= 3 (.getMaximumValue s)))))
   (testing "Spring"
     (let [s (spring (spring 3))]
       (is (instance? Spring s))

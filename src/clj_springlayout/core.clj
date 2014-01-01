@@ -4,6 +4,9 @@
 
 (defmulti spring class)
 
+(defmethod spring clojure.lang.Sequential [[min pref max]]
+  (Spring/constant min pref max))
+
 (defmethod spring Number [n]
   (Spring/constant n))
 
