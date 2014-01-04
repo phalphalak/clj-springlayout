@@ -1,6 +1,23 @@
 (ns clj-springlayout.core
-  (:import [javax.swing Spring])
+  (:import [javax.swing Spring SpringLayout])
   (:refer-clojure :exclude [+ - * / max min]))
+
+(defn ->layout [] (SpringLayout.))
+
+(defn keyword->edge [kw]
+  (case kw
+    (:north :up) SpringLayout/NORTH
+    (:south :down) SpringLayout/SOUTH
+    (:west :left) SpringLayout/WEST
+    (:east :right) SpringLayout/EAST
+    :width SpringLayout/WIDTH
+    :height SpringLayout/HEIGHT
+    :baseline SpringLayout/BASELINE
+    :horizontal-center SpringLayout/HORIZONTAL_CENTER
+    :vertical-center SpringLayout/VERTICAL_CENTER))
+
+(defn put [layout e1 c1 pad e2 c2]
+  (.putConstraint layout (keyword->edge e1) c1 pad (keyword->edge e2) c2))
 
 (defmulti spring class)
 
