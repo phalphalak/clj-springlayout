@@ -19,6 +19,23 @@
 (defn put [layout e1 c1 pad e2 c2]
   (.putConstraint layout (keyword->edge e1) c1 pad (keyword->edge e2) c2))
 
+(defn constraint [layout edge c]
+  (.getConstraint layout (keyword->edge edge) c))
+
+(defn- constraint-by-edge-fn [edge]
+  (fn [layout c]
+    (constraint layout edge c)))
+
+(def west (constraint-by-edge-fn :west))
+(def east (constraint-by-edge-fn :east))
+(def north (constraint-by-edge-fn :north))
+(def south (constraint-by-edge-fn :south))
+(def width (constraint-by-edge-fn :width))
+(def height (constraint-by-edge-fn :height))
+(def baseline (constraint-by-edge-fn :baseline))
+(def horizontal-center (constraint-by-edge-fn :horizontal-center))
+(def vertical-center (constraint-by-edge-fn :vertical-center))
+
 (defmulti spring class)
 
 (defmethod spring clojure.lang.Sequential [[min pref max]]
